@@ -2,19 +2,18 @@
 import Chart from "react-apexcharts";
 
 
-export default function DateStringChart({seriesData, seriesName, title}) {
-	let options = {
+// @ts-ignore
+export default function DateStringChart( {seriesData, seriesName, title}) {
+	let option = {
 		chart: {
-			type: "area",
 			id: "date-chart",
-			toolbar: { show: false },
+			toolbar: {show: false},
 			fontFamily: "Inter",
-
 		},
 		dataLabels: {
 			enabled: true,
 		},
-		colors: [ '#7367f0', ],
+		colors: ['#7367f0',],
 		xaxis: {
 			type: 'datetime',
 			labels: {
@@ -33,16 +32,22 @@ export default function DateStringChart({seriesData, seriesName, title}) {
 			},
 		},
 	}
-
-
 	let series = [
 		{
 			name: seriesName,
 			data: seriesData
 		}
 	]
-	return <div className="card chart-item">
-		<h6 className={ "font-semi-bold" }>{title}</h6>
-		<Chart options={ options } width={ "100%" } height={ 300 } series={ series } type={"area"}/>
-	</div>
+
+	return <article className="col-6">
+		<div className="card">
+			<div className="card-body">
+				<h6 className={'text-secondary'}>{title}</h6>
+				<div className="chart">
+					<Chart options={option} width={"100%"} height={300} series={series}  type={"area"}/>
+				</div>
+			</div>
+		</div>
+	</article>
+
 }
