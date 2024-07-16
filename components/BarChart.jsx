@@ -63,14 +63,20 @@ export default function BarChart({seriesData, seriesName, title}) {
 			},
 		},
 	}
-	return <div className="card chart-item">
-		<h6 className={ "font-semi-bold" }>{title}</h6>
-		<Chart
-			options={ options }
-			series={series }
-			type="bar"
-			width="100%"
-			height={300}
-		/>
-	</div>
+	return <article className="col-6">
+		<div className="card shadow">
+			<div className="card-body">
+				<h6 className={ 'text-secondary' }>{ title }</h6>
+				<Chart
+					options={ options }
+					series={ series }
+					type="bar"
+					width="100%"
+					height={ 300 }
+				/>
+			</div>
+
+		</div>
+
+	</article>
 }

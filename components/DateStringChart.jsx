@@ -40,7 +40,7 @@ export default function DateStringChart( {seriesData, seriesName, title}) {
 	]
 
 	return <article className="col-6">
-		<div className="card">
+		<div className="card shadow">
 			<div className="card-body">
 				<h6 className={'text-secondary'}>{title}</h6>
 				<div className="chart">

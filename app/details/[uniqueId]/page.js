@@ -3,7 +3,9 @@ import Header from "@/components/Header";
 import UserBanner from "@/components/UserBanner";
 import DataCardsList from "@/components/DataCardList";
 import PostList from "@/components/PostList";
-
+import DateStringChart from "@/components/DateStringChart";
+import './details.css'
+import BarChart from "@/components/BarChart";
 const Container = function ({children, title}) {
 	return (
 		<div className="container mx-auto py-4">
@@ -13,28 +15,54 @@ const Container = function ({children, title}) {
 	);
 }
 
+function formatDateToMonthYearCorrected(dateString) {
+	const date = new Date(dateString);
+	const year = date.getUTCFullYear().toString().slice(-2)
+	const month = date.toLocaleString('en-US', { month: 'long', timeZone: 'UTC'  });
+	const formattedDate = `${month} ${year}`;
+	return formattedDate
+}
 
 export default async function Details({params}) {
 	const uniqueId = params.uniqueId;
 	const tiktoks = await getTopUserTikToks(uniqueId);
 	const searchResults = await searchUsers(uniqueId);
 	const userInfo = searchResults[0];
-	const averageMonthlyResults = await getAverageViews(uniqueId);
-	const totalMonthlyResults = await getTotalViews(uniqueId);
+	const averagePlays = await getAverageViews(uniqueId);
+	const totalPlays = await getTotalViews(uniqueId);
+	const lineSeriesData = averagePlays.map(row => {
+		return {
+			x: row.date.split("T")[0].slice(0, 7),
+			y: row.averagePlayCount,
+		}
+	})
+	const barSeriesData = totalPlays.map(row => {
+		return {
 
-	return <main className={"details"}>
-		<Header />
+			x: formatDateToMonthYearCorrected(row.date),
+			y: row.totalPlayCount,
+		}
+	})
+	return <main className={ "details" }>
+		<Header/>
 		<div className="container mx-auto py-4">
-			<UserBanner userInfo={userInfo}/>
+			<UserBanner userInfo={ userInfo }/>
 		</div>
 		<div className="container mx-auto py-4">
 			<h3 className={ "mb-4" }>User Stats</h3>
 			<DataCardsList userInfo={ userInfo }/>
 		</div>
+		<div className="container mx-auto py-4">
+			<h3 className={ "mb-4" }>User Analytics</h3>
+			<div className="row">
+				<DateStringChart seriesData={lineSeriesData} seriesName={'Average Play Count'} title={"Average Play Count"} />
+				<BarChart seriesData={barSeriesData} seriesName={"Total Play Count"} title={"Total Play Count"} />
+			</div>
+		</div>
 
 		<div className="container mx-auto py-4">
 			<h3 className={"mb-4"}>Post List</h3>
-			<PostList tiktoks={tiktoks}/>
+		<PostList tiktoks={tiktoks}/>
 		</div>
 	</main>
 }

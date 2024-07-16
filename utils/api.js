@@ -1,8 +1,10 @@
-// import 'server-only';
-const baseUrl = "http://localhost:8000";
+import 'server-only';
+const baseUrl = "https://tiktok-backend-production-92f7.up.railway.app";
 
 export async function searchUsers(term) {
 	const res = await fetch(`${baseUrl}/user/search?username=${term}`)
+
+	console.log(res)
 	return res.json()
 }
 
