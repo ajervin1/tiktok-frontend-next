@@ -1,20 +1,11 @@
 import {getAverageViews, getTopUserTikToks, getTotalViews, searchUsers} from "@/utils/api";
+import './details.css'
 import Header from "@/components/Header";
 import UserBanner from "@/components/UserBanner";
 import DataCardsList from "@/components/DataCardList";
 import PostList from "@/components/PostList";
 import DateStringChart from "@/components/DateStringChart";
-import './details.css'
 import BarChart from "@/components/BarChart";
-const Container = function ({children, title}) {
-	return (
-		<div className="container mx-auto py-4">
-			{title && <h3 className={"mb-4"}>{title}</h3>}
-			{children}
-		</div>
-	);
-}
-
 function formatDateToMonthYearCorrected(dateString) {
 	const date = new Date(dateString);
 	const year = date.getUTCFullYear().toString().slice(-2)
@@ -22,8 +13,17 @@ function formatDateToMonthYearCorrected(dateString) {
 	const formattedDate = `${month} ${year}`;
 	return formattedDate
 }
-
-export default async function Details({params}) {
+/* Dynamic MetaData */
+export async function generateMetadata({ params }) {
+	const searchResults = await searchUsers(params.uniqueId);
+	const userInfo = searchResults[0];
+	return {
+		title: `${userInfo.nickname} (@${userInfo.uniqueId}) - TikTok Data Analytics | TikTok Analytics`,
+		description: `Analyze ${userInfo.nickname} (@${userInfo.uniqueId}) TikTok profile for growth, engagement, followers, likes, and average video performance. Get comprehensive insights now!`
+	}
+}
+/* Details Page */
+export default async function DetailsPage({params}) {
 	const uniqueId = params.uniqueId;
 	const tiktoks = await getTopUserTikToks(uniqueId);
 	const searchResults = await searchUsers(uniqueId);
@@ -59,7 +59,6 @@ export default async function Details({params}) {
 				<BarChart seriesData={barSeriesData} seriesName={"Total Play Count"} title={"Total Play Count"} />
 			</div>
 		</div>
-
 		<div className="container mx-auto py-4">
 			<h3 className={"mb-4"}>Post List</h3>
 		<PostList tiktoks={tiktoks}/>
