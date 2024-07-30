@@ -1,7 +1,9 @@
 'use client'
-import Chart from "react-apexcharts";
+import React, { useEffect, useState } from 'react';
 
-export default function BarChart({seriesData, seriesName, title}) {
+
+export default function BarChart( { seriesData, seriesName, title } ) {
+	const [ Chart, setChart ] = useState(null);
 
 	let series = [
 		{
@@ -28,7 +30,7 @@ export default function BarChart({seriesData, seriesName, title}) {
 			offsetY: -20,
 			style: {
 				fontSize: '12px',
-				colors: ["#304758"]
+				colors: [ "#304758" ]
 			}
 		},
 		colors: [ '#7367f0' ],
@@ -63,17 +65,17 @@ export default function BarChart({seriesData, seriesName, title}) {
 			},
 		},
 	}
+
+	useEffect(() => {
+		import('react-apexcharts').then(ApexChart => {
+			setChart(() => ApexChart.default);
+		});
+	}, []);
 	return <article className="col-6">
 		<div className="card shadow">
 			<div className="card-body">
 				<h6 className={ 'text-secondary' }>{ title }</h6>
-				<Chart
-					options={ options }
-					series={ series }
-					type="bar"
-					width="100%"
-					height={ 300 }
-				/>
+				{Chart && <Chart options={options} width={"100%"} height={300} series={series} type={"area"} />}
 			</div>
 
 		</div>

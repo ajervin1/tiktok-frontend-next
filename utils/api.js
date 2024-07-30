@@ -1,5 +1,5 @@
 import 'server-only';
-const baseUrl = "https://tiktok-backend-production-92f7.up.railway.app";
+const baseUrl = "https://tiktok-backend-zeta.vercel.app";
 export async function getUsers() {
 	const res = await fetch(`${baseUrl}/users`)
 	return res.json()

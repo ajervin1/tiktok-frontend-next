@@ -1,5 +1,5 @@
 export default function DataCardsList({userInfo}) {
-	console.log(userInfo)
+
 	return <section className="data-cards">
 		<div className="row">
 			<div className="col-3">

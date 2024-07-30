@@ -1,5 +1,5 @@
-import {getAverageViews, getTopUserTikToks, getTotalViews, searchUsers} from "@/utils/api";
 import './details.css'
+import {getAverageViews, getTopUserTikToks, getTotalViews, searchUsers} from "@/utils/api";
 import Header from "@/components/Header";
 import UserBanner from "@/components/UserBanner";
 import DataCardsList from "@/components/DataCardList";
@@ -15,15 +15,13 @@ function formatDateToMonthYearCorrected(dateString) {
 }
 /* Dynamic MetaData */
 export async function generateMetadata({ params }) {
-	const searchResults = await searchUsers(params.uniqueId);
-	const userInfo = searchResults[0];
 	return {
-		title: `${userInfo.nickname} (@${userInfo.uniqueId}) - TikTok Data Analytics | TikTok Analytics`,
-		description: `Analyze ${userInfo.nickname} (@${userInfo.uniqueId}) TikTok profile for growth, engagement, followers, likes, and average video performance. Get comprehensive insights now!`
+		title: `${params.uniqueId} (@${params.uniqueId}) - TikTok Data Analytics | TikTok Analytics`,
+		description: `Analyze ${params.uniqueId} (@${params.uniqueId}) TikTok profile for growth, engagement, followers, likes, and average video performance. Get comprehensive insights now!`
 	}
 }
 /* Details Page */
-export default async function DetailsPage({params}) {
+export default async function Details({params}) {
 	const uniqueId = params.uniqueId;
 	const tiktoks = await getTopUserTikToks(uniqueId);
 	const searchResults = await searchUsers(uniqueId);
