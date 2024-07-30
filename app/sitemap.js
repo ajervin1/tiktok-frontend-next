@@ -1,6 +1,6 @@
 import { getUsers } from "@/utils/api";
 
-const SITE_URL = "http://localhost:3000"
+const SITE_URL = "https://www.tiktokanalytics.tech"
 
 export default async function sitemap() {
 	const users = await getUsers();
