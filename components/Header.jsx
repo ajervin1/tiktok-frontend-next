@@ -7,9 +7,7 @@ export default function Header() {
 				<Link href={"/"} className={"text-decoration-none h2 text-info fw-semibold"}>TikTok <span className={"fw-medium"}>Tracker</span></Link>
 			</div>
 			<div className="actions">
-				<button className="btn btn-primary">
-					Login
-				</button>
+
 			</div>
 		</div>
 
