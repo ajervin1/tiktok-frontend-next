@@ -3,7 +3,7 @@ export default function robots() {
 		rules: {
 			userAgent: '*',
 			allow: '/',
-			disallow: '',
+			disallow: '/private/',
 		},
 		sitemap: 'http://localhost:3000/sitemap.xml',
 	}
