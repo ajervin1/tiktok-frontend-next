@@ -5,6 +5,6 @@ export default function robots() {
 			allow: '/',
 			disallow: '/private/',
 		},
-		sitemap: 'http://localhost:3000/sitemap.xml',
+		sitemap: 'https://www.tiktokanalytics.tech/sitemap.xml',
 	}
 }
